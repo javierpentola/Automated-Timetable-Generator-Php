@@ -77,6 +77,20 @@
             font-weight: bold;
             width: 100%;
         }
+
+        .view-calendar {
+            background-color: #0000ff; /* Blue button */
+            color: #ffffff; /* White text */
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            text-align: center;
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -112,6 +126,7 @@
             <input type="submit" value="Generate Timetable">
             <input type="reset" value="Reset">
         </form>
+        <a href="calendar.php" class="view-calendar">View Calendar</a>
     </div>
     <script>
         document.querySelector('.add-class').addEventListener('click', function() {
