@@ -56,39 +56,20 @@
             </thead>
             <tbody>
                 <?php
-                // Database connection
-                $servername = "localhost";
-                $username = "root"; // Change this if necessary
-                $password = ""; // Change this if necessary
-                $dbname = "timetable_db";
-
-                // Create connection
-                $conn = new mysqli($servername, $username, $password, $dbname);
-
-                // Check connection
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
-
-                // Fetch timetable data
-                $sql = "SELECT day, time, faculty, subject, room FROM timetable";
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-                    while($row = $result->fetch_assoc()) {
+                if (file_exists('calendar_data.xml')) {
+                    $xml = simplexml_load_file('calendar_data.xml');
+                    foreach ($xml->class as $class) {
                         echo "<tr>
-                                <td>" . $row["day"] . "</td>
-                                <td>" . $row["time"] . "</td>
-                                <td>" . $row["faculty"] . "</td>
-                                <td>" . $row["subject"] . "</td>
-                                <td>" . $row["room"] . "</td>
+                                <td>" . htmlspecialchars($class->day) . "</td>
+                                <td>" . htmlspecialchars($class->time) . "</td>
+                                <td>" . htmlspecialchars($class->faculty) . "</td>
+                                <td>" . htmlspecialchars($class->subject) . "</td>
+                                <td>" . htmlspecialchars($class->room) . "</td>
                               </tr>";
                     }
                 } else {
                     echo "<tr><td colspan='5'>No schedule found</td></tr>";
                 }
-
-                $conn->close();
                 ?>
             </tbody>
         </table>

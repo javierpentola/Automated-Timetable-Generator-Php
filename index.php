@@ -95,7 +95,7 @@
 </head>
 <body>
     <div class="container">
-        <form id="timetableForm">
+        <form id="timetableForm" action="save_timetable.php" method="POST">
             <div id="class-container">
                 <div class="form-group">
                     <label for="faculty">Faculty:</label>
@@ -132,11 +132,6 @@
         document.querySelector('.add-class').addEventListener('click', function() {
             const classEntry = document.querySelector('.form-group').parentNode.cloneNode(true);
             document.getElementById('class-container').appendChild(classEntry);
-        });
-
-        document.getElementById('timetableForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // JavaScript to handle form submission and AJAX requests
         });
     </script>
 </body>
