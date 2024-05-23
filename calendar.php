@@ -39,6 +39,36 @@
         td {
             background-color: #ffffff;
         }
+        .delete-button {
+            background-color: #ff0000; /* Red button */
+            color: #ffffff; /* White text */
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .delete-button:hover {
+            background-color: #cc0000; /* Darker red on hover */
+        }
+        .delete-all-button, .back-button {
+            background-color: #ff0000; /* Red button */
+            color: #ffffff; /* White text */
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .delete-all-button:hover, .back-button:hover {
+            background-color: #cc0000; /* Darker red on hover */
+        }
+        .back-button {
+            background-color: #0000ff; /* Blue button */
+        }
+        .back-button:hover {
+            background-color: #0000cc; /* Darker blue on hover */
+        }
     </style>
 </head>
 <body>
@@ -52,27 +82,38 @@
                     <th>Faculty</th>
                     <th>Subject</th>
                     <th>Room</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 if (file_exists('calendar_data.xml')) {
                     $xml = simplexml_load_file('calendar_data.xml');
-                    foreach ($xml->class as $class) {
+                    foreach ($xml->class as $index => $class) {
                         echo "<tr>
                                 <td>" . htmlspecialchars($class->day) . "</td>
                                 <td>" . htmlspecialchars($class->time) . "</td>
                                 <td>" . htmlspecialchars($class->faculty) . "</td>
                                 <td>" . htmlspecialchars($class->subject) . "</td>
                                 <td>" . htmlspecialchars($class->room) . "</td>
+                                <td><form method='POST' action='delete_class.php'>
+                                    <input type='hidden' name='index' value='" . $index . "'>
+                                    <button type='submit' class='delete-button'>Delete</button>
+                                </form></td>
                               </tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='5'>No schedule found</td></tr>";
+                    echo "<tr><td colspan='6'>No schedule found</td></tr>";
                 }
                 ?>
             </tbody>
         </table>
+        <form method="POST" action="delete_all.php">
+            <button type="submit" class="delete-all-button">Delete All Classes</button>
+        </form>
+        <form method="GET" action="index.php">
+            <button type="submit" class="back-button">Back to Index</button>
+        </form>
     </div>
 </body>
 </html>

@@ -45,6 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     $xml->save('calendar_data.xml');
-    echo "Timetable saved successfully!";
+    
+    // Redirigir a calendar.php después de guardar
+    header("Location: calendar.php");
+    exit();
 }
 ?>
